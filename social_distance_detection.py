@@ -132,7 +132,7 @@ while cap.isOpened():
 
     cv2.namedWindow('Frame',cv2.WINDOW_NORMAL)
 
-    # Show fame
+    # Show frame
     cv2.imshow('Frame', frame)
     cv2.resizeWindow('Frame',800,600)
 
