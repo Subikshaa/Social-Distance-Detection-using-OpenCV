@@ -27,7 +27,7 @@ labels = [line.strip() for line in open(args['labels'])]
 bounding_box_color = np.random.uniform(0, 255, size=(len(labels), 3))
 
 
-# Load network with the weights
+# Load model
 print("\nLoading model...\n")
 network = cv2.dnn.readNetFromCaffe(args["prototxt"], args["model"])
 
@@ -110,14 +110,10 @@ while cap.isOpened():
     for i in pos_dict.keys():
         for j in pos_dict.keys():
             if i < j:
-                dist = sqrt(pow(pos_dict[i][0]-pos_dict[j][0],2) + pow(pos_dict[i][1]-pos_dict[j][1],2))
-                if pos_dict[i][2] < pos_dict[j][2]:
-                    length = pos_dict[j][2] - pos_dict[i][2]
-                else:
-                    length = pos_dict[i][2] - pos_dict[j][2]
-                dist_ppl = sqrt(pow(dist,2) + pow(length,2))
+                dist = sqrt(pow(pos_dict[i][0]-pos_dict[j][0],2) + pow(pos_dict[i][1]-pos_dict[j][1],2) + pow(pos_dict[i][2]-pos_dict[j][2],2))
+
                 # Check if distance less than 2 metres or 200 centimetres
-                if dist_ppl < 200:
+                if dist < 200:
                     close_objects.add(i)
                     close_objects.add(j)
 
